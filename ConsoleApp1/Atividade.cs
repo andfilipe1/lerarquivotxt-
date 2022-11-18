@@ -17,7 +17,7 @@ namespace ConsoleApp1
             var dadosCadastrais = new List<dadosDoEmail>();
             string NOME, REMETENTE, DESTINATARIO, DATAEMAIL, CONTEUDO;
 
-            string[] linha = Directory.GetFiles(@"C:\fiotec\Mensagens v02\Nova pasta");
+            string[] linha = Directory.GetFiles(@"C:\fiotec\Mensagens v02\");
 
             //ABRE E LÊ O ARQUIVO TXT
 
@@ -25,27 +25,33 @@ namespace ConsoleApp1
             {
                 string[] text = File.ReadAllLines(linha[i]);
 
-                NOME = text[3].Substring(0, 11);
-                REMETENTE = text[0].Substring(0, 11);
-                DESTINATARIO = text[2].Substring(0, 11);
-                DATAEMAIL = text[1].Substring(0, 11);
-                CONTEUDO = text.ToString();
+                if (text.Length != 0)
+                {
+                    NOME = text[3].Substring(0, 11);
+                    REMETENTE = text[0].Substring(0, 11);
+                    DESTINATARIO = text[2].Substring(0, 11);
+                    DATAEMAIL = text[1].Substring(0, 11);
+                    CONTEUDO = text.ToString();
 
-                var email = new dadosDoEmail();
-                email.NOME = NOME;
-                email.REMETENTE = REMETENTE;
-                email.DESTINATARIO = DESTINATARIO;
-                email.DATAEMAIL = DATAEMAIL;
-                email.CONTEUDO = CONTEUDO;
+                    var email = new dadosDoEmail();
+                    email.NOME = NOME;
+                    email.REMETENTE = REMETENTE;
+                    email.DESTINATARIO = DESTINATARIO;
+                    email.DATAEMAIL = DATAEMAIL;
+                    email.CONTEUDO = CONTEUDO;
 
-                dadosCadastrais.Add(email);
-                Console.WriteLine(dadosCadastrais);
+                    dadosCadastrais.Add(email);
+                }
+                else
+                {
+                    continue;
+                }
+
             }
 
             foreach (var dados in dadosCadastrais)
             {
-                Console.WriteLine(dados);
-                //sql.inserirDados(dados);
+                sql.inserirDados(dados);
             }
 
 
